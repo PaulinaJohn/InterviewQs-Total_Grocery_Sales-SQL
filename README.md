@@ -6,4 +6,4 @@ Another newsletter from [InterviewQs](https://www.interviewqs.com/). On this occ
 * PostgreSQL
 * Standard SQL in BigQuery
 
-The latter two will be uploaded soon.
+The later two will be uploaded soon.
