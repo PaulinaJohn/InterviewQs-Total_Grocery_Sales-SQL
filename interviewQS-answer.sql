@@ -141,7 +141,7 @@ ORDER BY
 total_sales DESC
 
 --------------------------------------------------------------------
--- By Conbining Subquery and CTE
+-- By Combining Subquery and CTE.
 /*Here, I saved the entire combination of Joins and a subquery as a CTE 
 i can further query the final table if need be.
 Except that here, I am not allowed to use the ORDER BY command inside the CTE,
