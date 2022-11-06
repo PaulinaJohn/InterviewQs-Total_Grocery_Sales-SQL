@@ -1,4 +1,8 @@
--- Creating Schema
+--Information for 3 tables - Store, Product, Sales, were provided.
+--I started by creating a schema for the tables, creating the tables and inserting
+--the values provided into them.
+
+--Creating Schema
 
 CREATE SCHEMA intqs
 
@@ -67,34 +71,35 @@ SELECT * FROM intqs.Store
 SELECT * FROM intqs.Product
 SELECT * FROM intqs.Sales
 
+---------------------------------------------------------------------------------------
 -- Answering the question
 /*Using the tables above, write a SQL query to return total sales (in dollars) 
 by store location by product. If total sales are null for a given 
 store location / product combination, set them to 0.*/
 
--- My thought process
-/*The tables that have related columns are:
+/*
+My thought process
+
+The tables that have related columns are:
 -Store and Sales
 -Product and Sales.
-The task is to get total sales by store location by product. 
-This means I need to get the Store and Product tables together to be able to pull the final information I need.
-As there is no related column between the Store and Product tables, 
-I will use the Sales table to achieve the needed connection between these two tables.
-Í will join the Product and Sales tables in a subquery, 
-and then Join the Store table to the table resulting from the subquery. 
-This can also be done viseversa, i.e, Join Store and Sales tables in Subquery and Join resulting table to Product.
+The task is to get total sales by store location by product.This means I need to get the Store and Product tables together to be able to pull the final information I need.
+As there is no related column between the Store and Product tables, I will use the Sales table to achieve the needed connection between these two tables.
+Í join the Product and Sales tables, and then Join the Store table to the resulting table.
+This can also be done viseversa, i.e, Join Store and Sales tables first, and Join resulting table to Product.
 
 I will aggregate, using the SUM function to get the total sales, as that should be one of the columns in my final table.
-Ofcourse, once I am aggregating, I'll have to follow up with the 'GROUP BY' command, 
-and I have to group by all columns in the final table, except the column that holds the result of the aggregation.
+Ofcourse, once I am aggregating, I'll have to follow up with the 'GROUP BY' command, and I have to group by all columns in the final table, except the column that holds the result of the aggregation.
 My final table will have the following information
 location, store_id, Product_id and total_sales.
 
+---------------------------------------------------------------------------------------------
 There are a number of ways to solve the task at hand
-We can use the concept of subqueries, Common Table Expressions(CTEs), 
-or even temporary tables, depending on the scenario and what we want.
+We can use the concept of subqueries, Common Table Expressions(CTEs), temporary tables, 
+we could even create function(s) to acheive this, depending on the scenario and what we are driving at.
 
-I will use the Subquery and CTE concepts to amswer this question, just for demonstation purposes.*/
+I will use the Subquery and CTE concepts, and then a combination of the two, to amswer this question, for demonstation purposes.
+*/
 
 --Using a Subquery
 
@@ -117,9 +122,8 @@ GROUP BY
 location, j.store_id, product_id
 ORDER BY
 total_sales DESC
-LIMIT 3
 
-
+-----------------------------------------------------------------------------
 -- Using a CTE
 
 WITH sales_loc AS
@@ -140,9 +144,10 @@ location, l.store_id, product_id
 ORDER BY
 total_sales DESC
 
+--------------------------------------------------------------------
 -- By Conbining Subquery and CTE
-/*Here, I use the subquery method and save the entire query as a CTE 
-i can further query the final table if i need to
+/*Here, I saved the entire combination of Joins and a subquery as a CTE 
+i can further query the final table if need be.
 Except that here, I am not allowed to use the order by command inside the CTE,
 unless I specify any of commands like 'TOP', OFFSET; but I can use orderby in further querying the CTE*/
 
