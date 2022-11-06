@@ -6,4 +6,4 @@ Another newsletter from [InterviewQs](https://www.interviewqs.com/). On this occ
 * [PostgreSQL](https://github.com/PaulinaJohn/InterviewQs-Total_Grocery_Sales-SQL/blob/main/Total_Grocery_Sales-%20PostgreSQL.sql)
 * Standard SQL in BigQuery
 
-The later two will be uploaded soon.
+The last will be uploaded soon.
