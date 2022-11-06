@@ -1,6 +1,5 @@
 --Information for 3 tables - Store, Product, Sales, were provided.
---I started by creating a schema for the tables, creating the tables and inserting
---the values provided into them.
+--I started by creating a schema for the tables, creating the tables and inserting the values provided into them.
 
 --Creating Schema
 
@@ -72,10 +71,10 @@ SELECT * FROM intqs.Product
 SELECT * FROM intqs.Sales
 
 ---------------------------------------------------------------------------------------
--- Answering the question
-/*Using the tables above, write a SQL query to return total sales (in dollars) 
-by store location by product. If total sales are null for a given 
-store location / product combination, set them to 0.*/
+-- Answering the question.
+--Using the tables above, write a SQL query to return total sales (in dollars) by store location by product. 
+--If total sales are null for a given store location / product combination, set them to 0.
+
 
 /*
 My thought process
@@ -84,22 +83,24 @@ The tables that have related columns are:
 -Store and Sales
 -Product and Sales.
 The task is to get total sales by store location by product.This means I need to get the Store and Product tables together to be able to pull the final information I need.
-As there is no related column between the Store and Product tables, I will use the Sales table to achieve the needed connection between these two tables.
-Í join the Product and Sales tables, and then Join the Store table to the resulting table.
-This can also be done viseversa, i.e, Join Store and Sales tables first, and Join resulting table to Product.
-
-I will aggregate, using the SUM function to get the total sales, as that should be one of the columns in my final table.
-Ofcourse, once I am aggregating, I'll have to follow up with the 'GROUP BY' command, and I have to group by all columns in the final table, except the column that holds the result of the aggregation.
-My final table will have the following information
+-As there is no related column between the Store and Product tables, I will use the Sales table to achieve the needed connection between these two tables.
+-Í join the Product and Sales tables, and then join the Store table to the resulting table.
+-This can also be done vice versa, i.e, join Store and Sales tables first, and join resulting table to Product.
+-I will use a Left Join, followed by a Right Join in this task, to expose products and stores not recording sales, respectively.
+-The question says to set sales for such location/ product combinations to zero(0)
+-I will aggregate, using the SUM function to get the total sales, as that should be one of the columns in my final table.
+-Ofcourse, once I am aggregating, I'll have to follow up with the 'GROUP BY' command, and I have to group by all columns in the final table, except the column that holds the result of the aggregation.
+-My final table will have the following information
 location, store_id, Product_id and total_sales.
+*/
 
 ---------------------------------------------------------------------------------------------
-There are a number of ways to solve the task at hand
-We can use the concept of subqueries, Common Table Expressions(CTEs), temporary tables, 
-we could even create function(s) to acheive this, depending on the scenario and what we are driving at.
+--There are a number of ways to solve the task at hand
+--We can use the concept of subqueries, Common Table Expressions(CTEs), temporary tables, 
+--we could even create function(s) to acheive this, depending on the scenario and what we are driving at.
 
-I will use the Subquery and CTE concepts, and then a combination of the two, to amswer this question, for demonstation purposes.
-*/
+--I will use the Subquery and CTE concepts seperately, and then a combination of the two, for demonstation purposes.
+
 
 --Using a Subquery
 
@@ -110,12 +111,9 @@ FROM
 -- Here, we are joining the Product and Sales tables
 (SELECT s.store_id, p.product_id, p.price_usd 
 FROM intqs.Product AS p
---I used the left Join here just incase there are products that have not recorded sales.
 LEFT JOIN intqs.Sales AS s
 ON p.product_id = s.product_id
 ) AS j
---Right Join, to see if there are locations not recording sales.
---The question says to set sales for such location(s)to zero(0)
 RIGHT JOIN intqs.Store AS t
 ON t.store_id = j.store_id
 GROUP BY
@@ -123,20 +121,18 @@ location, j.store_id, product_id
 ORDER BY
 total_sales DESC
 
+
 -----------------------------------------------------------------------------
 -- Using a CTE
 
 WITH sales_loc AS
 (SELECT s.store_id, p.product_id, p.price_usd 
 FROM intqs.Product AS p
---I used the left Join here just incase there are products that have not recorded sales.
 LEFT JOIN intqs.Sales AS s
 ON p.product_id = s.product_id)
 
 SELECT t.location, l.store_id, l.product_id, SUM(price_usd) AS total_sales
 FROM sales_loc AS l
---Right Join, to see if there are locations not recording sales.
---The question says to set sales for such location(s)to zero(0)
 RIGHT JOIN intqs.Store AS t
 ON t.store_id = l.store_id
 GROUP BY
@@ -149,7 +145,7 @@ total_sales DESC
 /*Here, I saved the entire combination of Joins and a subquery as a CTE 
 i can further query the final table if need be.
 Except that here, I am not allowed to use the order by command inside the CTE,
-unless I specify any of commands like 'TOP', OFFSET; but I can use orderby in further querying the CTE*/
+unless I specify anyone of commands like 'TOP', OFFSET; but I can use orderby in further querying the CTE*/
 
 WITH sales_location AS
 (SELECT t.location, j.store_id, j.product_id, SUM(price_usd) AS total_sales
@@ -159,12 +155,9 @@ FROM
 -- Here, we are joining the Product and Sales tables
 (SELECT s.store_id, p.product_id, p.price_usd 
 FROM intqs.Product AS p
---I used the left Join here just incase there are products that have not recorded sales.
 LEFT JOIN intqs.Sales AS s
 ON p.product_id = s.product_id
 ) AS j
---Right Join, to see if there are locations not recording sales.
---The question says to set sales for such location(s)to zero(0)
 RIGHT JOIN intqs.Store AS t
 ON t.store_id = j.store_id
 GROUP BY
