@@ -144,8 +144,8 @@ total_sales DESC
 -- By Conbining Subquery and CTE
 /*Here, I saved the entire combination of Joins and a subquery as a CTE 
 i can further query the final table if need be.
-Except that here, I am not allowed to use the order by command inside the CTE,
-unless I specify anyone of commands like 'TOP', OFFSET; but I can use orderby in further querying the CTE*/
+Except that here, I am not allowed to use the ORDER BY command inside the CTE,
+unless I specify anyone of commands like 'TOP', OFFSET; but I can use ORDER BY in further querying the CTE*/
 
 WITH sales_location AS
 (SELECT t.location, j.store_id, j.product_id, SUM(price_usd) AS total_sales
