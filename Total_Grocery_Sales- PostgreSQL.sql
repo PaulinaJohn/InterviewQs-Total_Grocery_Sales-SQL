@@ -56,9 +56,10 @@ INSERT INTO intqs.Sales(sale_id, product_id, store_id, date)
 VALUES
 /*
 Notice that for postgreSQL, I had to replace the forward slashes in the date values with hyphens.
-and even re-arrange to postgreSQL's standard date format, 'yyyy-mm-dd', as it appears postgreSQL only accepts date values spaced with hyphens, 
-Anther option would have been to still re-arrange, but do away with the seperators, then call the 'TO_DATE' function and specify the format, 'yyyy-mm-dd')
-I also noticed that PostgreSQL does not infer dates like MSSQL Servr will do. You have to pass a date value arranged exactly as either 'yyyy-mm-dd' or, or if you are using the TO_DATE function, 'yyyymmdd'
+and even re-arrange to postgreSQL's standard date format, 'yyyy-mm-dd'. 
+Anther option would have been to still re-arrange, but do away with the separators, then call the 'TO_DATE' function and specify the format, 'yyyy-mm-dd')
+I also noticed that PostgreSQL does not infer dates like MSSQL Servr will do. You have to pass a date value arranged exactly as 'yyyy-mm-dd', 
+or, if you are going to use the TO_DATE function, 'yyyymmdd'
 
 */
 (1, 31331, 91110, '2020-02-20'),
