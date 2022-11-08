@@ -173,7 +173,7 @@ total_sales DESC;
 --Note that you do not need to make a view out of every query you write, especially when the queries are towards achieving the same task, as it is in this case.
 --Here, you will find that I used the first query statement to create a view. I used the second and third in the PostgreSQL and BigQuery files respectively.
 
--- Remember, as already explained in the CTE query, a view is one of the objects we cannot use an ORDER command in during creation in MSSQL.
+-- Remember, as already explained in the CTE query, a view is one of the objects we cannot use an ORDER BY command in during creation in MSSQL.
 
 -- However, let's first create the view using our first query statement; the subquery statement.
 
