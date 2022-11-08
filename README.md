@@ -9,7 +9,7 @@ Another newsletter from [InterviewQs](https://www.interviewqs.com/). On this occ
 Different RDBMSs show differences in SQL dialects.
 
 * In MSSQL Server, you will use the Transact-SQL (T-SQL) dialect.
-* PostgreSQL uses the PL/pgSQL (PL- Procedural language), and;
+* PostgreSQL offers PL/pgSQL (PL- Procedural language), and;
 * In BigQuery, You will come across Standard SQL.
 
 Technology and dialect-wise, I encountered these differences across these RDBMs:
@@ -17,4 +17,4 @@ Technology and dialect-wise, I encountered these differences across these RDBMs:
 * You cannot use the ORDER BY command in common table expressions (CTEs), views, amongst others, in MSSQL but, this can be done in PostgreSQL and BigQuery.
 * Although I only mentioned it as an alternative in the data insertion part of my PostgeSQL file and didn't have to use it, the TO_DATE function only works with PostgreSQL. The other two have their alternative(s) to the function, if and when necessary.
 
-** What PostgreSQL and MSSQL considers as 'Schema', appears to be considered as 'Datasets' in BigQuery. BigQuery looks to assign the 'Schema' nomenclature to table column descriptions. Even though
+** What PostgreSQL and MSSQL considers 'Schema', appears to be considered 'Datasets' in BigQuery. BigQuery looks to assign the 'Schema' nomenclature to table column description.
