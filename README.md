@@ -9,7 +9,7 @@ Another newsletter from [InterviewQs](https://www.interviewqs.com/). On this occ
 Different RDBMSs show differences in SQL dialects.
 
 * In MSSQL Server, you will use the Transact-SQL (T-SQL) dialect.
-* PostgreSQL offers PL/pgSQL (PL- Procedural language), and;
+* PostgreSQL offers PL/pgSQL (Where PL= Procedural language), and;
 * In BigQuery, You will come across Standard SQL.
 
 Technology and dialect-wise, I encountered these differences across these RDBMSs:
