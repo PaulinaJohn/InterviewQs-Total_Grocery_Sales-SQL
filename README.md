@@ -10,7 +10,7 @@ Different RDBMSs show differences in SQL dialects.
 
 * In MSSQL Server, you will use the Transact-SQL (T-SQL) dialect.
 * PostgreSQL offers PL/pgSQL (Where PL= Procedural language), and;
-* In BigQuery, You will come across Standard SQL.
+* In BigQuery, You will come across the Standard SQL.
 
 Technology and dialect-wise, I encountered these differences across these RDBMSs:
 * BigQuery is case-sensitive with table names. Postgresql and MSSQL Server are not.
