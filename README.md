@@ -12,7 +12,7 @@ Different RDBMSs show differences in SQL dialects.
 * PostgreSQL uses the PL/pgSQL (PL- Procedural language), and;
 * In BigQuery, You will come across Standard SQL.
 
-Technology and dialect-wise, I encountered these differences across the RDBMs I used:
+Technology and dialect-wise, I encountered these differences across these RDBMs:
 * BigQuery is case-sensitive with table names. Postgresql and MSSQL Server are not.
 * You cannot use the ORDER BY command in common table expressions (CTEs), views, amongst others, in MSSQL but, this can be done in PostgreSQL and BigQuery.
 * Although I only mentioned it as an alternative in the data insertion part of my PostgeSQL file and didn't have to use it, the TO_DATE function only works with PostgreSQL. The other two have their alternative(s) to the function, if and when necessary.
