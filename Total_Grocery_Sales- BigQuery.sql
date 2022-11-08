@@ -1,6 +1,9 @@
 /*
 Information for 3 tables - Store, Product, Sales, were provided. 
-Note: My BigQuery account is only Sandbox. Hence, I am not allowed to use nearly all DDL and DML languages in here; only Query language. So, I could not create Schema or the tables using query statements like I did in MSSQL server and PostgreSQL. I had to download the datasets from one these two- PostgreSQL, precisely- as csv files, and import them here as tables in 'a point-and-click approach'. So, I'll just go straight to answering the question.
+Note: My BigQuery account is only Sandbox. Hence, I am not allowed to use nearly all DDL and DML languages in here; only Query language. 
+So, I could not create Schema or the tables using query statements like I did in MSSQL server and PostgreSQL. 
+I had to download the datasets from one these two- PostgreSQL, precisely- as csv files, and import them here as tables in 'a point-and-click approach'. 
+So, I'll just go straight to answering the question.
 */
 
 
