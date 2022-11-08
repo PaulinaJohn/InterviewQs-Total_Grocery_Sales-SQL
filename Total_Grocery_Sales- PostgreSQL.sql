@@ -150,8 +150,9 @@ total_sales DESC
 
 --------------------------------------------------------------------
 -- By Combining Subquery and CTE
-/*Here, I saved the entire combination of joins and a subquery as a CTE.
-Notice a difference in dialect here? In MSSQL, I am not allowed to use the ORDER BY command in CTEs, views, for example. 
+/*
+Here, I saved the entire combination of joins and a subquery as a CTE.
+Notice a difference here? In MSSQL, I am not allowed to use the ORDER BY command in CTEs, views, for example. 
 But PostgreSQL allows that. 
 */
 
