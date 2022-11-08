@@ -119,8 +119,7 @@ ON t.store_id = j.store_id
 GROUP BY
 location, j.store_id, product_id
 ORDER BY
-total_sales DESC
-
+total_sales DESC;
 
 -----------------------------------------------------------------------------
 -- Using a CTE
@@ -138,14 +137,16 @@ ON t.store_id = l.store_id
 GROUP BY
 location, l.store_id, product_id
 ORDER BY
-total_sales DESC
+total_sales DESC;
 
 --------------------------------------------------------------------
 -- By Combining Subquery and CTE.
-/*Here, I saved the entire combination of Joins and a subquery as a CTE 
-i can further query the final table if need be.
-Except that here, I am not allowed to use the ORDER BY command inside the CTE,
-unless I specify anyone of commands like 'TOP', OFFSET; but I can use ORDER BY in further querying the CTE*/
+
+/*Here, I saved the entire combination of joins and a subquery as a CTE.
+Take note of a difference here. To quote the error message I got, in MSSQL, 
+I am not allowed to use the ORDER BY command in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is also specified.
+In contrast, this worked with PostgreSQL and Standard SQL, as used in BigQuery
+*/
 
 WITH sales_location AS
 (SELECT t.location, j.store_id, j.product_id, SUM(price_usd) AS total_sales
@@ -163,7 +164,44 @@ ON t.store_id = j.store_id
 GROUP BY
 location, j.store_id, product_id)
 
-SELECT *
+SELECT * 
 FROM sales_location
 ORDER BY
 total_sales DESC;
+
+--In conclusion, from any of the query statements we have seen so far, we can even create a view of our final table.
+--Note that you do not need to make a view out of every query you write, especially when the queries are towards achieving the same task, as it is in this case.
+--Here, you will find that I used the first query statement to create a view. I used the second and third in the PostgreSQL and BigQuery files respectively.
+
+-- Remember, as already explained in the CTE query, a view is one of the objects we cannot use an ORDER command in during creation in MSSQL.
+
+-- However, let's first create the view using our first query statement; the subquery statement.
+
+CREATE VIEW intqs.sales_loc_view AS
+
+SELECT t.location, j.store_id, j.product_id, SUM(price_usd) AS total_sales
+-- Selecting the columns we want our final table to display
+FROM
+-- Now we write the subquery, aliased as j- could be anything
+-- Here, we are joining the Product and Sales tables
+(SELECT s.store_id, p.product_id, p.price_usd 
+FROM intqs.Product AS p
+LEFT JOIN intqs.Sales AS s
+ON p.product_id = s.product_id
+) AS j
+RIGHT JOIN intqs.Store AS t
+ON t.store_id = j.store_id
+GROUP BY
+location, j.store_id, product_id 
+
+--So, now that the view has been created, we can add an ORDER BY command when we query the view.
+
+SELECT *
+FROM intqs.sales_loc_view
+ORDER BY
+total_sales DESC;
+
+-- The disadvantage here is; if what we wanted to be in the view was the ordered version of our final table, that may not be possible here.
+-- Are there alternatives to this in MSSQL? I guess I'll look this up and share subsquently. Feel free to research and share with me too.
+
+--Thank you!

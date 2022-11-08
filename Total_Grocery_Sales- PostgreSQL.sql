@@ -150,10 +150,10 @@ total_sales DESC
 
 --------------------------------------------------------------------
 -- By Combining Subquery and CTE
-/*Here, I saved the entire combination of Joins and a subquery as a CTE 
-i can further query the final table if need be.
-Except that here, I am not allowed to use the ORDER BY command inside the CTE,
-unless I specify anyone of commands like 'TOP', OFFSET; but I can use ORDER BY in further querying the CTE*/
+/*Here, I saved the entire combination of joins and a subquery as a CTE.
+Notice a difference in dialect here? In MSSQL, I am not allowed to use the ORDER BY command in CTEs, views, for example. 
+But PostgreSQL allows that. 
+*/
 
 WITH sales_location AS
 (SELECT t.location, j.store_id, j.product_id, SUM(price_usd) AS total_sales
@@ -169,9 +169,35 @@ ON p.product_id = s.product_id
 RIGHT JOIN intqs.Store AS t
 ON t.store_id = j.store_id
 GROUP BY
-location, j.store_id, product_id)
+location, j.store_id, product_id
+ORDER BY
+total_sales DESC)
 
 SELECT *
-FROM sales_location
+FROM sales_location;
+
+
+--In conclusion, from any of the query statements we have seen so far, we can even create a view of our final table.
+--Note that you do not need to make a view out of every query you write, especially when the queries are towards achieving the same task, as it is in this case.
+--Here, you will find that I used the second query statement to create a view. I used the first and third in the MSSQL and BigQuery files respectively. 
+
+-- Creating a view of our final table Using the 'CTE only' query statement
+
+CREATE VIEW intqs.sales_loc_view AS
+WITH sales_loc AS
+(SELECT s.store_id, p.product_id, p.price_usd 
+FROM intqs.Product AS p
+LEFT JOIN intqs.Sales AS s
+ON p.product_id = s.product_id)
+
+SELECT t.location, l.store_id, l.product_id, SUM(price_usd) AS total_sales
+FROM sales_loc AS l
+RIGHT JOIN intqs.Store AS t
+ON t.store_id = l.store_id
+GROUP BY
+location, l.store_id, product_id
 ORDER BY
-total_sales DESC;
+total_sales DESC
+
+
+--Thank you!
